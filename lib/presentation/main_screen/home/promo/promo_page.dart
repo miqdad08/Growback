@@ -1,0 +1,57 @@
+import 'package:flutter/material.dart';
+import 'package:growback/model/populer_model.dart';
+import 'package:growback/presentation/main_screen/home/detail/detail_mart.dart';
+import 'package:growback/presentation/main_screen/home/populer/populer_item.dart';
+import 'package:growback/presentation/main_screen/home/terdekat/pedagang_terdekat.dart';
+
+class PromoPage extends StatelessWidget {
+  const PromoPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> const PedagangTerdekat()));
+            },
+            icon: Image.asset("assets/images/ic_location.png"),
+          ),
+        ],
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Color(0xff26315F),
+          ),
+        ),
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        title: const Text("Promo", style: TextStyle(color: Color(0xff26315F))),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height ,
+              child: ListView.builder(itemBuilder: (context, index){
+                final PopulerModel populerModel = populerModelList[index];
+                return InkWell(
+                  onTap: () {
+
+                  },
+                  child: PopulerItem(populerModel: populerModel),
+                );
+              },
+                itemCount: populerModelList.length,
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}

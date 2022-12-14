@@ -1,0 +1,57 @@
+import 'package:flutter/material.dart';
+import 'package:growback/model/terdekat_model.dart';
+import 'package:growback/presentation/main_screen/home/detail/detail_mart.dart';
+import 'package:growback/presentation/main_screen/home/terdekat/pedagang_terdekat.dart';
+import 'package:growback/presentation/main_screen/home/terdekat/terdekat_item.dart';
+
+class TerdekatPage extends StatelessWidget {
+  const TerdekatPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> const PedagangTerdekat()));
+            },
+            icon: Image.asset("assets/images/ic_location.png"),
+          ),
+        ],
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Color(0xff26315F),
+          ),
+        ),
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        title: const Text("Terdekat", style: TextStyle(color: Color(0xff26315F))),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height ,
+              child: ListView.builder(itemBuilder: (context, index){
+                final TerdekatModel terdekatModel = terdekatModelList[index];
+                return InkWell(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailMartPage(terdekatModel: terdekatModel)));
+                  },
+                  child: TerdekatItem(terdekatModel: terdekatModel),
+                );
+              },
+              itemCount: terdekatModelList.length,
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
